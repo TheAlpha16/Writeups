@@ -1,5 +1,5 @@
 
-<center># Gallery</center>
+<center><h1>Gallery</h1></center>
 
 
 ## Description
