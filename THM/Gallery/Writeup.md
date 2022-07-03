@@ -97,6 +97,7 @@ Checking the /etc/passwd shows that we have these users
 
 To enumerate the machine I have used [linpeas](https://linpeas.sh)
 Here there is an interesting result
+
 <img src="./images/linpeas.png" width="300">
 
 We got the password for the user mike here.
@@ -184,4 +185,41 @@ root
 root.txt
 ```
 THM{ba87e0dfe5903adf#####################}
+```
+
+<br>
+
+# AdMiner
+
+Here we need admin password hash to submit to THM
+
+For this we need username, password, database name.
+Checking the file `/var/www/html/gallery/initialize.php` we can see these creds
+
+```
+if(!defined('DB_USERNAME')) define('DB_USERNAME',"gallery_user");
+if(!defined('DB_PASSWORD')) define('DB_PASSWORD',"passw0rd321");
+if(!defined('DB_NAME')) define('DB_NAME',"gallery_db");
+```
+
+So to get it we can use `mysql` on machine.
+But here I have used [Adminer](https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php) which is a GUI for SQL DataBase in a single file.
+
+I have hosted this file on my http server and used wget to tranfer it to `/var/www/html` directory
+Then I have accessed this from the webpage
+
+<img src="./images/adminer.png" width="300">
+
+Now using this command shows us the users data
+
+```
+SELECT * FROM `users` LIMIT 50
+```
+
+<img src="./images/admin.png">
+
+Admin password hash
+
+```
+a228b12a08b6527#################
 ```
