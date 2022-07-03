@@ -1,6 +1,6 @@
-
-<center><h1>Gallery</h1></center>
-
+<head>
+<h1><center>Gallery</center></h1>
+</head>
 
 ## Description
 
