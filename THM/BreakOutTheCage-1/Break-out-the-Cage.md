@@ -12,8 +12,6 @@ Let's find out what his agent is up to....
 
 We are provided with the IP of the machine.
 
-<br>
-
 ### Port Scan
 
 &nbsp;&nbsp;Basic port scan shows that there are three open ports on the machine.
