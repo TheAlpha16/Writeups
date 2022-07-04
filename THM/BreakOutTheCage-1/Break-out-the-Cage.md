@@ -68,7 +68,7 @@ UWFwdyBFZWtjbCAtIFB2ciBSTUtQLi4uWFpXIFZXVVIuLi4gVFRJIFhFRi4uLiBMQUEgWlJHUVJPISEh
 
 ## Dad Taks
 
-This is a bas64 encoded message.
+This is a base64 encoded message.
 Using [Cyberchef](https://gchq.github.io/CyberChef/) we can decode to see a vigenere encoded text.
 Bruteforcing it using [Boxentric](https://www.boxentriq.com/code-breaking/vigenere-cipher) we find the key is `namelesstwo`
 
@@ -139,6 +139,7 @@ os.system("wall " + quote)
 ```
 
 Now at this point we have write access to `.quotes`
+
 I deleted all the lines in `.quotes` and added a reverse shell using socat
 
 <br>
