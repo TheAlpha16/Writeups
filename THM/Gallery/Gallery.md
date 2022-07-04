@@ -98,7 +98,7 @@ Checking the /etc/passwd shows that we have these users
 To enumerate the machine I have used [linpeas](https://linpeas.sh)
 Here there is an interesting result
 
-<img src="./images/linpeas.png" width="300">
+<img src="./images/linpeas.png" width="500">
 
 We got the password for the user mike here.
 ```
