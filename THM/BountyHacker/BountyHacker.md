@@ -1,5 +1,5 @@
 <head>
-<h1><center>Bounty Hunters</center></h1>
+<h1><center>Bounty Hacker</center></h1>
 </head>
 
 ## Description
