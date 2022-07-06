@@ -26,7 +26,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 #### Port 80
 
-The website contains a picture and some quotes by some poeple.
+The website contains a picture and quotes by some poeple.
 <img src="./images/web.png">
 
 Directory Scan showed nothing useful..
@@ -49,7 +49,8 @@ Directory Scan showed nothing useful..
 
 #### Port 21
 
-Here we have anonymous login to FTP 
+Here we have anonymous login to FTP.
+
 It has two files 
 - locks.txt
 - task.txt
@@ -98,7 +99,7 @@ task.txt
 
 ## SSH
 
-I realized that `locks.txt` possibly contain the passwords of some user.
+I realized that `locks.txt` possibly contain the password of some user.
 I quickly listed out all the possible usernames that I have seen on the website and of course from task.txt
 
 users 
