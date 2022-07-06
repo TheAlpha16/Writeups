@@ -76,9 +76,12 @@ User alice may run the following commands on wonderland:
 
 Here alice can run the above python script as user `rabbit`.
 
+<br>
+
 ## Alice
 
 The Python script consists of a poem of around 100 lines.
+
 It is using `random` module to select 10 lines and print them.
 
 ```
@@ -88,6 +91,7 @@ for i in range(10):
 ```
 
 Here we need a bit of understanding about importing modules..
+
 Whenever a module is imported, python interpreter checks the current directory for the module and then proceeds for the PATH.
 
 So we can abuse this by creating our own random module. 
@@ -108,11 +112,13 @@ If we run `sudo -u rabbit /usr/bin/python3.6 /home/alice/walrus_and_the_carpente
 ## Rabbit
 
 Checking the rabbit's home directory shows a compiled binary `teaParty` owned by user `hatter` with **SUID** bit set on it..🥳
+
 Decompiling the binary, we can see that it is using `date` command without absolute path.
 
 <img src="./images/decompile.png">
 
 We can use this to get the shell as the user `hatter`.
+
 As we did earlier with the module random, we can create our own date script and add that directory at the start of **$PATH**.
 This invokes our script instead of the actual `date` binary.
 
