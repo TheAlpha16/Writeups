@@ -40,11 +40,11 @@ But it was not accessible 🙁
 
 #### Port 80
 
-&nbsp;&nbsp;&nbsp;Going over to the port 80 shows default Apache webpage.
+Going over to the port 80 shows default Apache webpage.
 
 #### Directory Scan
 
-&nbsp;&nbsp;&nbsp;Scan shows a directory listing at /assets/
+Scan shows a directory listing at /assets/
 
 ```
 403 http://10.10.129.76/.htpasswd
@@ -275,9 +275,10 @@ sudo -l --- (ALL, !root) NOPASSWD: /usr/bin/vi /home/gwendoline/user.txt
 ```
 
 This basically means user gwendoline can run the above command as anyone but root.
+
 But checking the `sudo` version we see that it too old `1.8.10p3`
 
-Searching for vulnerabilities we can find [`CVE-2019-14287`](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14287) which allows anyone to bypass the restrictions as root to run sudo.
+Searching for vulnerabilities we can find [`CVE-2019-14287`](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14287) which allows anyone to bypass the restrictions to run sudo.
 
 <br>
 
