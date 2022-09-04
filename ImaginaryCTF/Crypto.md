@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
 <br>
 
-# aes
+# AES
 
 ## Description
 
@@ -258,3 +258,146 @@ for i in range(len(keys)):
 
 I found this place that just hands out flags! The only problem is that they're all encrypted, tailored to you, personally. Can you decrypt it?
 
+## Attachments
+
+enc.py
+
+```
+#!/usr/bin/env python3
+
+from Crypto.Util.number import *
+from random import seed, getrandbits
+
+m = bytes_to_long(open('flag.txt', 'rb').read())
+print("What's your name?\n>>> ", end='')
+name = open(0, 'rb').readline().strip()
+seed(bytes_to_long(name))
+e = 2*getrandbits(32)+1
+p = getPrime(512)
+q = getPrime(512)
+n = p*q
+c = pow(m, e, n)
+print(f"Here's your flag, {''.join(chr(i) for i in name)}!")
+print(f'{n = }')
+print(f'{e = }')
+print(f'{c = }')
+```
+
+`nc puzzler7.imaginaryctf.org 4002`
+
+
+## Solution 
+
+The script takes a string from user and uses it as the seed.
+In a way, we can actually control the value of e.
+
+So, the initial thought was to make e as small as possible. The minimum that we can achieve is 1.
+
+For that we need a seed that produces zero when we use `getrandbits(32)`.
+
+After bruteforcing for about 6 hours, the seed that produces 0 is `4213973159`.
+
+script
+
+```
+import socket
+from Crypto.Util.number import *
+
+
+def netcat(hostname, port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((hostname, port))
+
+    s.recv(1024)
+    payload = long_to_bytes(4213973159)
+    print(payload)
+    s.sendall(payload+b'\n')
+    data2 = s.recv(1024)
+    index = data2.find(b'c = ')
+    flag_int = int(data2[index+4:-1].decode())
+    print(long_to_bytes(flag_int).decode())
+
+
+host = "puzzler7.imaginaryctf.org"
+port = 4002
+
+netcat(host, port)
+```
+
+## flag
+
+`ictf{just_f0r_y0uuuuuuuu}`
+
+<br>
+
+# Same
+
+## Description
+
+Something here is the same...
+
+## Attachments
+
+same.py
+
+```
+from Crypto.Util.number import getPrime, bytes_to_long
+m = bytes_to_long(open("flag", "rb").read())
+n = getPrime(512)*getPrime(512)
+e = [1337,31337]
+print(n)
+print(pow(m,e[0],n))
+print(pow(m,e[1],n))
+```
+
+output.txt
+
+```
+88627598925887227793409704066287679810103408445903546693879278352563489802835708613718629728355698762251810901364530308365201192197988674078034209878433048946797619290221501750862580914894979204943093716650072734138749420932619469204815802746273252727013183568196402223549961607284086898768583604510696483111
+45254947860172381004009381991735702721210786277711531577381599020185600496787746985669891424940792336396574951744089759764874889285927022268694128526139687661305707984329995359802337446670063047702309778972385903473896687843125261988493615328641864610786785749566148338268077425756876069789788618208807001704
+16054811947596452078263236160429328686151351092304509270058479526590947874445940946506791900760052230887962479603369427120610506778471930164144528718052332194666418267005043709704814833963217926271924910466448499814399455203725279998913865531351070938872586642424346857094632491904168889134624707595846754719
+```
+
+## Solution
+
+The flaw in the above implementation is that both encryptions are using same modulus.
+
+This allows us to do [Common Modulus Attack](https://infosecwriteups.com/rsa-attacks-common-modulus-7bdb34f331a5)
+
+script
+
+```
+from Crypto.Util.number import *
+from math import gcd
+
+
+def egcd(a, b):
+    if a == 0:
+        return b, 0, 1
+    else:
+        g, y, x = egcd(b % a, a)
+        return g, x - (b // a) * y, y
+
+
+def attack(c1, c2, e1, e2, N):
+    g, x, y = egcd(e1, e2)
+    m1 = pow(c1, x, N)
+    m2 = pow(c2, y, N)
+    flag = (m1 * m2) % N
+    print(long_to_bytes(flag).decode())
+
+
+ n = 886275989258872277...
+c1 = 452549478601723810...
+c2 = 160548119475964520...
+e1 = 1337
+e2 = 31337
+
+attack(c1, c2, e1, e2, n)
+```
+
+## flag
+
+`ictf{n3ver_r3use_m0dul1}`
+
+<br>
