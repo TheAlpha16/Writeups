@@ -219,4 +219,16 @@ flag.txt
 i‎c‮t‎f‮{‎‎un1c0‮de_m‮4g1c_na‎‮h‎s‮d‮fo‮‎asi‎h‮‮df‎asoh‮‎dfoi‎ashdf‎‮‎j‎‮k‎a‎‮‎d‎s‮‮hf‮‎lj‮ad‮‎‮s‮f‎hdskl‮a‎‮h‎fl‮‮‎k‮hj‎‎‮d‎‎‮‮‮a‎‎fs}
 ```
 
-As we can see
+## Solution
+
+It is not visible as unicode characters are rendered, but there are various unicode characters in the flag.txt
+
+```
+jithendranadh@Jithendras-MacBook-Air Downloads % cat flag.txt 
+i?c?t?f?{??un1c0?de_m?4g1c_na??h?s?d?fo??asi?h??df?asoh??dfoi?ashdf???j??k?a???d?s??hf??lj?ad???s?f?hdskl?a??h?fl???k?hj???
+```
+
+## flag
+
+`ictf{un1c0de_m4g1c_nahsdfoasihdfasohdfoiashdfjkadshfljadsfhdsklahflkhjdafs}`
+
