@@ -1,4 +1,3 @@
-
 # Lost Flag
 
 ## Description
@@ -138,3 +137,86 @@ Image.fromarray(pen_arr).show()
 
 
 
+# Zippy
+
+## Description
+
+Yet another hash cracking challenge ... or is there another way to go faster than the competition?
+
+## Attachments
+
+`https://imaginaryctf.org/f/QmDPe#chall.zip`
+
+gen.py
+
+```
+#!/usr/bin/env python3
+
+from base64 import b64encode
+from flag import flag
+from string import ascii_letters, digits
+from hashlib import sha1
+from random import choice
+from os import system
+
+password = ''.join(choice(ascii_letters+digits) for i in range(80))
+fname = b64encode(sha1(password.encode()).digest()).decode()
+
+with open(fname, 'w') as f:
+    f.write(flag)
+
+print(password)
+print(fname)
+
+system(f'7z a chall.zip {fname} -mem=AES256 -p{password}')
+```
+
+## Solution
+
+Since the password is long, it is hashed before using as a password.
+
+Now we can see the password hash in the zip file.
+
+```
+jithendranadh@Jithendras-MacBook-Air Downloads % strings chall.zip
+ng3pV1YIws4l91Ai04m3IMVa2kg=
+Rp5tJ
+ng3pV1YIws4l91Ai04m3IMVa2kg=
+```
+
+using this hash as password will give us the flag
+
+script
+
+```
+import pyzipper
+import base64
+
+passwd = base64.b64decode('ng3pV1YIws4l91Ai04m3IMVa2kg='.encode())
+
+with pyzipper.AESZipFile('chall.zip', 'r', compression=pyzipper.ZIP_DEFLATED, encryption=pyzipper.WZ_AES) as extracted_zip:
+    extracted_zip.extractall(pwd=passwd)
+```
+
+## flag
+
+`ictf{fastest_hash_cracking_gun_in_the_w3st}`
+
+<br>
+
+# mixup
+
+## Description
+Something went wrong here...
+
+## Attachments
+
+`https://imaginaryctf.org/f/CJVKB#flag.txt`
+
+flag.txt
+
+```
+i‎c‮t‎f‮{‎‎un1c0‮de_m‮4g1c_na‎‮h‎s‮d‮fo‮‎asi‎h‮‮df‎asoh‮‎dfoi‎ashdf‎‮‎j‎‮k‎a‎‮‎d‎s‮‮hf‮‎lj‮ad‮‎‮s‮f‎hdskl‮a‎‮h‎fl‮‮‎k‮hj‎‎‮d‎‎‮‮‮a‎‎fs}
+```
+
+As we can see
