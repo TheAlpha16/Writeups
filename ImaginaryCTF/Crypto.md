@@ -401,3 +401,25 @@ attack(c1, c2, e1, e2, n)
 `ictf{n3ver_r3use_m0dul1}`
 
 <br>
+
+# XORed
+
+## Description
+
+I encrypted my flag with single byte XOR! XOR is used in one-time-pads, so surely it's uncrackable...
+
+## Attachments
+
+```* 7%8-s70& 61&>```
+
+## Solution 
+
+Since the key is just of length one, I have used XOR bruteforce in Cyberchef.
+
+recipie
+
+```https://gchq.github.io/CyberChef/#recipe=XOR_Brute_Force(1,100,0,'Standard',false,true,false,'ictf%7B')&input=KiA3JTgtczcwJiA2MSY%2B```
+
+## flag
+
+`ictf{n0tsecure}`

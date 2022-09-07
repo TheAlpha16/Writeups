@@ -123,3 +123,73 @@ But the intended solution for this is to use [Side Channel Attack](https://en.wi
 
 <br>
 
+# Shifted
+
+## Description
+
+Oh no! The flag turned into a jumble of random characters! Good thing we have the script that encoded it... (also hi it's been a while since I've made a challenge)
+
+## Attachments
+
+shifted.py
+
+```
+import string
+import random
+
+flag = open("flag.txt").read().strip()
+mystery_num = random.randint(100,1000)
+new_alphabet = list(string.ascii_lowercase + string.digits + string.punctuation)
+enc_flag = ""
+
+def shift(char):
+  index = new_alphabet.index(char)
+  new_index = (index + mystery_num) % len(new_alphabet)
+  return new_alphabet[new_index]
+
+for char in flag:
+  enc_flag += shift(char)
+  mystery_num += 10
+
+print(enc_flag)
+# 15[=>ts-!]kgjhz%6cn~";=;.1b3:>}sq7n'\^]42t
+```
+
+## Solution
+
+In the above implementation, if we find the mystery number we can retrieve the flag.
+
+For that I have checked the first two characters of the flag, the mystery number matches 19.
+
+script
+
+```
+import string
+import random
+
+flag = """15[=>ts-!]kgjhz%6cn~";=;.1b3:>}sq7n'\^]42t"""
+mystery_num = 19
+new_alphabet = list(string.ascii_lowercase + string.digits + string.punctuation)
+enc_flag = ""
+
+print(new_alphabet.index('i'), new_alphabet.index('1'))
+print(new_alphabet.index('c'), new_alphabet.index('5'))
+
+def shift(char):
+    index = new_alphabet.index(char)
+    new_index = (index - mystery_num) % len(new_alphabet)
+    return new_alphabet[new_index]
+
+
+for char in flag:
+    enc_flag += shift(char)
+    mystery_num += 10
+
+print(enc_flag)
+# 15[=>ts-!]kgjhz%6cn~";=;.1b3:>}sq7n'\^]42t
+```
+
+## flag
+
+`ictf{sh1ft1ng_ch@rs_w1th_4_myst3ry_numb3r}`
+

