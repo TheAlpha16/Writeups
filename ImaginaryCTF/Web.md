@@ -42,7 +42,7 @@ Checking the source code shows us an obfuscated javascript code.
 I have used this [deobfuscator](https://lelinhtinh.github.io/de4js/) which showed [history.pushState](https://www.javascripttutorial.net/web-apis/javascript-history-pushstate/).
 
 This function adds the provided url to the history stack.
-There appears to a flag being added to the history stack, So simply clicking back button gives us the flag.
+There appears to be a flag being added to the history stack, So simply clicking back button gives us the flag.
 
 ## flag
 
