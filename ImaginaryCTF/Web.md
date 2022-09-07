@@ -1,3 +1,29 @@
+# Almost SSTI
+
+## Description
+
+I heard that you can prevent SSTI by enforcing really strong restrictions on user input length, so I've done that! Surely my webserver is now completely impregnable from any bugs.
+
+## Attachments
+
+`http://puzzler7.imaginaryctf.org:3002/`
+
+## Solution
+
+Trying basic jinja injection shows that the debug is set to True.
+
+So going over to `/console` shows the python debugger console but without the pin.
+
+We have access to RCE now!!
+
+`__import__('os').popen(<b>cmd</b>).read();`
+
+## flag 
+
+`ictf{oops_I_left_my_debugger_on_I_need_to_run_home_before_my_webserver_burns_down}`
+
+<br>
+
 # Replacement
 
 ## Description
